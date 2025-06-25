@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Düğün Sayacı</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      color: #ffffff;
+      margin-bottom: 40px;
+    }
+
+    #countdown {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .time-box {
+      background-color: #1a1a1a;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      font-weight: 600;
+      box-shadow: 0 0 10px #ffffff;
+      color: #ffffff;
+    }
+
+    .label {
+      font-size: 0.7em;
+      font-weight: 400;
+      margin-top: 5px;
+      color: #ffffff;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .time-box {
+        width: 70px;
+        height: 70px;
+        font-size: 1em;
+      }
+
+      .label {
+        font-size: 0.6em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Düğüne Kalan Süre</h1>
+  <div id="countdown">
+    <div class="time-box"><div id="days">--</div><div class="label">Gün</div></div>
+    <div class="time-box"><div id="hours">--</div><div class="label">Saat</div></div>
+    <div class="time-box"><div id="minutes">--</div><div class="label">Dakika</div></div>
+    <div class="time-box"><div id="seconds">--</div><div class="label">Saniye</div></div>
+  </div>
+
+  <script>
+    const targetDate = new Date("2025-06-29T18:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "<h2>Düğün Başladı!</h2>";
+        clearInterval(interval);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
